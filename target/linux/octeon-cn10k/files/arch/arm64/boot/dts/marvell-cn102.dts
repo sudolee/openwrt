@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Device Tree for Marvell OCTEON 10 CN102
+ */
+
+/dts-v1/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+#include "marvell-cn10k.dtsi"  // 可能需要创建
+
+/ {
+    model = "Marvell OCTEON 10 CN102";
+    compatible = "marvell,cn102", "marvell,cn10k";
+
+    aliases {
+        serial0 = &uart0;
+        ethernet0 = &eth0;
+        ethernet1 = &eth1;
+        // 添加更多网络接口...
+    };
+
+    chosen {
+        stdout-path = "serial0:115200n8";
+    };
+
+    memory@0 {
+        device_type = "memory";
+        reg = <0x0 0x0 0x0 0x400000000>;  // 16GB RAM
+    };
+
+    // 添加网络接口、GPIO、LED 等定义...
+};
+
+&uart0 {
+    status = "okay";
+};
+
+&eth0 {
+    status = "okay";
+    phy-mode = "rgmii";
+    // 其他以太网配置...
+};
+
+// 配置更多网络接口...
