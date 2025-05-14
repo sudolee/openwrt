@@ -1,0 +1,45 @@
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option packet_steering '1'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+	option mtu '1492'
+	option ipv6 '1'
+
+config device
+	option type '8021q'
+	option ifname 'br-lan'
+	option vid '100'
+	option name 'br-lan.100'
+	option ipv6 '1'
+
+config interface 'LAN'
+	option proto 'static'
+	option device 'br-lan.100'
+	option ipaddr '172.16.0.1'
+	option netmask '255.255.255.0'
+	option defaultroute '0'
+
+config device
+	option name 'eth0'
+	option mtu '1492'
+	option ipv6 '1'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '1000'
+	option name 'eth0.1000'
+	option macaddr '60:eb:5a:de:ad:01'
+
+config interface 'wan'
+	option proto 'dhcp'
+	option device 'br-lan.1000'
